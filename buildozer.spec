@@ -10,5 +10,5 @@ orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET
 android.accept_sdk_license = True
-android.api = 31'
+android.api = 31
 android.minapi = 24
