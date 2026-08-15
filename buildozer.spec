@@ -1,16 +1,58 @@
 [app]
+
+# اسم التطبيق
 title = Sendar Lite
+
+# اسم الحزمة - أحرف إنجليزية وأرقام فقط
 package.name = sendarlite
+
+# معرّف التطبيق
 package.domain = org.sendar
-source.include_exts = py,png,jpg,kv,atlas
+
+# مكان ملفات التطبيق
 source.dir = .
-version = 1.0
+
+# الملفات التي تدخل داخل APK
+source.include_exts = py,png,jpg,jpeg,kv,atlas
+
+# إصدار التطبيق
+version = 1.0.0
+
+# المكتبات المطلوبة
 requirements = python3,kivy
+
+# اتجاه الشاشة
 orientation = portrait
+
+# إظهار شريط الحالة
 fullscreen = 0
+
+# صلاحية الإنترنت
 android.permissions = INTERNET
+
+# قبول تراخيص Android تلقائيًا
 android.accept_sdk_license = True
-android.api = 31
-android.ndk = 23b
+
+# إصدار Android المستهدف
+android.api = 35
+
+# أقل إصدار Android
 android.minapi = 24
+
+# NDK المتوافق مع بيئة Buildozer الحديثة
+android.ndk = 28c
+
+# API المستخدم مع NDK
+android.ndk_api = 24
+
+# المعمارية
+android.archs = arm64-v8a, armeabi-v7a
+
+# اسم ملف APK
+android.add_src =
+
+# إعدادات Buildozer
 log_level = 2
+
+# استخدام python-for-android develop
+p4a.branch = develop
