@@ -3,7 +3,7 @@
 # اسم التطبيق
 title = Sendar Lite
 
-# اسم الحزمة - أحرف إنجليزية وأرقام فقط
+# اسم الحزمة
 package.name = sendarlite
 
 # معرّف التطبيق
@@ -39,20 +39,14 @@ android.api = 35
 # أقل إصدار Android
 android.minapi = 24
 
-# NDK المتوافق مع بيئة Buildozer الحديثة
+# NDK
 android.ndk = 28c
 
 # API المستخدم مع NDK
 android.ndk_api = 24
 
 # المعمارية
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a,armeabi-v7a
 
-# اسم ملف APK
-android.add_src =
-
-# إعدادات Buildozer
+# مستوى السجل
 log_level = 2
-
-# استخدام python-for-android develop
-p4a.branch = develop
