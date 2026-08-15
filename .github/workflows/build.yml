@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -61,6 +60,67 @@ jobs:
             libtinfo6 \
             cmake \
             libffi-dev \
+            libssl-dev \
+            libltdl-dev \
+            gettext \
+            libsqlite3-dev
+
+      - name: Install Rust
+        run: |
+          curl https://sh.rustup.rs -sSf | sh -s -- -y
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - name: Install Buildozer
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+
+          python -m pip install \
+            "cython==0.29.37"
+
+          python -m pip install \
+            "buildozer"
+
+      - name: Verify Buildozer
+        run: |
+          echo "===== BUILDOZER ====="
+          buildozer --version
+
+          echo "===== CYTHON ====="
+          python -c "import Cython; print(Cython.__version__)"
+
+      - name: Check buildozer.spec
+        run: |
+          echo "===== BUILDOZER SPEC ====="
+          cat buildozer.spec
+
+      - name: Clean previous builds
+        run: |
+          rm -rf .buildozer
+          rm -rf bin
+          rm -rf build
+
+      - name: Build APK
+        env:
+          BUILDOZER_WARN_ON_ROOT: "0"
+        run: |
+          buildozer -v android debug
+
+      - name: Find APK
+        if: always()
+        run: |
+          echo "===== BIN DIRECTORY ====="
+          ls -lah bin || true
+
+          echo "===== ALL APK FILES ====="
+          find . -type f -name "*.apk" -print || true
+
+      - name: Upload APK
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sendar-Lite-APK
+          path: bin/*.apk
+          if-no-files-found: error            libffi-dev \
             libssl-dev \
             libltdl-dev \
             gettext \
