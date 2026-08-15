@@ -1,4 +1,4 @@
-name: Build APK
+Name: Build APK
 
 on:
   push:
@@ -33,17 +33,19 @@ jobs:
             libswscale-dev \
             libavformat-dev \
             libavcodec-dev \
-            zlib1g-dev
+            zlib1g-dev \
+            openjdk-17-jdk
 
     - name: Install Buildozer and Cython
       run: |
         pip install --upgrade pip
         pip install cython==0.29.33 buildozer
+
     - name: Build APK with Buildozer
       run: |
-        export ANDROID_ACCEPT_LICENSE=1
+        yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
         buildozer -v android debug
-        
+
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
