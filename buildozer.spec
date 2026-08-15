@@ -12,7 +12,7 @@ source.include_exts = py,png,jpg,jpeg,kv,atlas
 
 version = 1.0.0
 
-requirements = python3,kivy
+requirements = python3==3.11.9,kivy==2.3.1
 
 orientation = portrait
 
@@ -30,10 +30,8 @@ android.ndk = 28c
 
 android.ndk_api = 24
 
-android.archs = arm64-v8a, armeabi-v7a
-
-android.add_src =
-
-log_level = 2
+android.archs = arm64-v8a,armeabi-v7a
 
 p4a.branch = develop
+
+log_level = 2
