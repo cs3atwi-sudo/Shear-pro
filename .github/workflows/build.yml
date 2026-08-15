@@ -69,8 +69,12 @@ jobs:
       - name: Install Buildozer
         run: |
           python -m pip install --upgrade pip setuptools wheel
-          python -m pip install "cython==0.29.37"
-          python -m pip install "buildozer"
+
+          python -m pip install \
+            "cython==0.29.37"
+
+          python -m pip install \
+            "buildozer"
 
       - name: Verify Buildozer
         run: |
@@ -86,17 +90,14 @@ jobs:
           ls -lah
 
           echo "===== MAIN.PY ====="
-          test -f main.py && echo "main.py OK" || echo "ERROR: main.py missing"
+          test -f main.py
 
           echo "===== BUILDOZER.SPEC ====="
-          test -f buildozer.spec && echo "buildozer.spec OK" || echo "ERROR: buildozer.spec missing"
-
-          echo "===== REQUIREMENTS ====="
-          ls requirements.txt pyproject.toml 2>/dev/null || true
+          test -f buildozer.spec
 
       - name: Check buildozer.spec
         run: |
-          echo "===== BUILDOZER SPEC CONTENT ====="
+          echo "===== BUILDOZER SPEC ====="
           cat buildozer.spec
 
       - name: Clean previous builds
