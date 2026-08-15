@@ -95,7 +95,10 @@ jobs:
           echo "===== BUILDOZER.SPEC ====="
           test -f buildozer.spec
 
-      - name: Check buildozer.spec
+          echo "===== SPEC FIRST LINE ====="
+          head -n 1 buildozer.spec
+
+      - name: Check Buildozer configuration
         run: |
           echo "===== BUILDOZER SPEC ====="
           cat buildozer.spec
