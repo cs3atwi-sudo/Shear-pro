@@ -1,130 +1,39 @@
-name: Build APK
+[app]
 
-on:
-  push:
-    branches:
-      - main
+title = Sendar Lite
 
-  workflow_dispatch:
+package.name = sendarlite
 
-jobs:
-  build:
-    name: Build Android APK
-    runs-on: ubuntu-24.04
+package.domain = org.sendar
 
-    steps:
+source.dir = .
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
+source.include_exts = py,png,jpg,jpeg,kv,atlas
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+version = 1.0.0
 
-      - name: Setup Java
-        uses: actions/setup-java@v5
-        with:
-          distribution: "temurin"
-          java-version: "17"
+requirements = python3,kivy
 
-      - name: Verify environment
-        run: |
-          echo "===== PYTHON ====="
-          python --version
-          python -m pip --version
+orientation = portrait
 
-          echo "===== JAVA ====="
-          java -version
+fullscreen = 0
 
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
+android.permissions = INTERNET
 
-          sudo apt-get install -y \
-            git \
-            zip \
-            unzip \
-            build-essential \
-            autoconf \
-            automake \
-            libtool \
-            pkg-config \
-            zlib1g-dev \
-            libncurses5-dev \
-            libncursesw5-dev \
-            libtinfo6 \
-            cmake \
-            libffi-dev \
-            libssl-dev \
-            libltdl-dev \
-            gettext \
-            libsqlite3-dev
+android.accept_sdk_license = True
 
-      - name: Install Rust
-        run: |
-          curl https://sh.rustup.rs -sSf | sh -s -- -y
-          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+android.api = 35
 
-      - name: Install Buildozer
-        run: |
-          python -m pip install --upgrade pip setuptools wheel
+android.minapi = 24
 
-          python -m pip install \
-            "cython==0.29.37"
+android.ndk = 28c
 
-          python -m pip install \
-            "buildozer"
+android.ndk_api = 24
 
-      - name: Verify Buildozer
-        run: |
-          echo "===== BUILDOZER ====="
-          buildozer --version
+android.archs = arm64-v8a, armeabi-v7a
 
-          echo "===== CYTHON ====="
-          python -c "import Cython; print(Cython.__version__)"
+android.add_src =
 
-      - name: Check project files
-        run: |
-          echo "===== PROJECT FILES ====="
-          ls -lah
+log_level = 2
 
-          echo "===== MAIN.PY ====="
-          test -f main.py
-
-          echo "===== BUILDOZER.SPEC ====="
-          test -f buildozer.spec
-
-      - name: Check buildozer.spec
-        run: |
-          echo "===== BUILDOZER SPEC ====="
-          cat buildozer.spec
-
-      - name: Clean previous builds
-        run: |
-          rm -rf .buildozer
-          rm -rf bin
-          rm -rf build
-
-      - name: Build APK
-        env:
-          BUILDOZER_WARN_ON_ROOT: "0"
-        run: |
-          buildozer -v android debug
-
-      - name: Find APK
-        if: always()
-        run: |
-          echo "===== BIN DIRECTORY ====="
-          ls -lah bin || true
-
-          echo "===== ALL APK FILES ====="
-          find . -type f -name "*.apk" -print || true
-
-      - name: Upload APK
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Sendar-Lite-APK
-          path: bin/*.apk
-          if-no-files-found: error
+p4a.branch = develop
