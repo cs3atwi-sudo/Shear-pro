@@ -24,7 +24,6 @@ class SendarLiteApp(App):
             spacing=dp(12),
         )
 
-        # عنوان التطبيق
         title_label = Label(
             text="منصة Sendar المصغرة",
             font_size=dp(24),
@@ -35,14 +34,15 @@ class SendarLiteApp(App):
             halign="center",
             valign="middle",
         )
+
         title_label.bind(
             size=lambda instance, value: setattr(
                 instance, "text_size", value
             )
         )
+
         root.add_widget(title_label)
 
-        # وصف الحقل
         msg_label = Label(
             text="أدخل النص أو الأمر:",
             font_size=dp(17),
@@ -52,14 +52,15 @@ class SendarLiteApp(App):
             halign="right",
             valign="middle",
         )
+
         msg_label.bind(
             size=lambda instance, value: setattr(
                 instance, "text_size", value
             )
         )
+
         root.add_widget(msg_label)
 
-        # حقل الإدخال
         self.entry = TextInput(
             hint_text="اكتب النص أو الأمر هنا",
             font_size=dp(17),
@@ -68,9 +69,9 @@ class SendarLiteApp(App):
             height=dp(52),
             padding=[dp(12), dp(12)],
         )
+
         root.add_widget(self.entry)
 
-        # زر التنفيذ
         action_btn = Button(
             text="تشغيل العملية",
             font_size=dp(17),
@@ -78,10 +79,11 @@ class SendarLiteApp(App):
             size_hint_y=None,
             height=dp(55),
         )
+
         action_btn.bind(on_press=self.run_process)
+
         root.add_widget(action_btn)
 
-        # عنوان السجل
         log_title = Label(
             text="سجل العمليات",
             font_size=dp(16),
@@ -92,14 +94,15 @@ class SendarLiteApp(App):
             halign="right",
             valign="middle",
         )
+
         log_title.bind(
             size=lambda instance, value: setattr(
                 instance, "text_size", value
             )
         )
+
         root.add_widget(log_title)
 
-        # منطقة السجل
         scroll = ScrollView(
             do_scroll_x=False,
             do_scroll_y=True,
@@ -125,8 +128,15 @@ class SendarLiteApp(App):
         return root
 
     def update_log_height(self, instance, texture_size):
-        instance.height = max(texture_size[1] + dp(20), dp(100))
-        instance.text_size = (instance.width - dp(20), None)
+        instance.height = max(
+            texture_size[1] + dp(20),
+            dp(100)
+        )
+
+        instance.text_size = (
+            instance.width - dp(20),
+            None
+        )
 
     def run_process(self, instance):
         user_input = self.entry.text.strip()
@@ -135,7 +145,10 @@ class SendarLiteApp(App):
             self.show_warning()
             return
 
-        self.log_box.text += f">> جاري تنفيذ: {user_input}\n"
+        self.log_box.text += (
+            f">> جاري تنفيذ: {user_input}\n"
+        )
+
         self.entry.text = ""
 
     def show_warning(self):
@@ -151,9 +164,12 @@ class SendarLiteApp(App):
             halign="center",
             valign="middle",
         )
+
         message.bind(
             size=lambda instance, value: setattr(
-                instance, "text_size", value
+                instance,
+                "text_size",
+                value
             )
         )
 
@@ -173,7 +189,9 @@ class SendarLiteApp(App):
             auto_dismiss=False,
         )
 
-        close_button.bind(on_press=popup.dismiss)
+        close_button.bind(
+            on_press=popup.dismiss
+        )
 
         popup.open()
 
